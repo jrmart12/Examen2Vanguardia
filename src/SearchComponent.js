@@ -9,7 +9,7 @@ import {
   NavigatorIOS 
 } from 'react-native';
 
-export default class App extends React.Component {
+export default class SearchComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
