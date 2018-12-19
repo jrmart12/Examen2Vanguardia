@@ -12,7 +12,7 @@ export default class SearchComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchString: '',
+      searchString: 'Search',
       jobs: []
     };
   }
@@ -27,25 +27,39 @@ export default class SearchComponent extends React.Component {
         <TextInput
           underlineColorAndroid={'transparent'}
           style={styles.searchInput}
-          value={this.state.searchString}
           placeholder='Search'
           onChangeText={(searchString) =>  this.setState(()=>({
             searchString: searchString
           }))}  />
       </View>
+
       <Button style={styles.button}
       title = "Search"
       onPress={() =>{
 
       axios.get("https://jobs.github.com/positions.json")
-      .then(({ data })=> {
-        console.log(data);
-        this.setState({ jobs:data });
+      .then((res)=> {
+        let a = 0;
+        let job = [];
+        for(a = 0; a < res.data.length; a++){
+          //un if para verificar lo que tiene text
+          if(this.state.searchString != "Search"){
+            var busqueda = this.state.searchString;
+            if(res.data[a].title.includes(busqueda)){
+              job.push(res.data[a]);
+            }
+          }
+        }
+        console.log(res.data.length);
+        this.setState(() => ({jobs: job}));
+        this.props.navigation.navigate('Jobs', {jobs: this.state.postsToShow}); 
       })
       .catch(err => console.log(err.message)); //eslint-disable-lint
+      console.log(this.state.jobs.length);
+    } 
+    }
 
-      this.props.navigation.navigate('Jobs',{jobs:this.state.jobs})
-      } }
+    
       title="Button"
       />
 
