@@ -7,19 +7,21 @@ import {
   View,
   Button
 } from 'react-native';
-
+import axios from 'axios';
 export default class SearchComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchString: '',
+      jobs: []
     };
   }
 
 
+    
+
 
   render() {
-
     return (  
       <View style={styles.main}>
         <Text style={styles.description}>
@@ -30,11 +32,26 @@ export default class SearchComponent extends React.Component {
           underlineColorAndroid={'transparent'}
           style={styles.searchInput}
           value={this.state.searchString}
-          placeholder='Search'/>
+          placeholder='Search'
+          onChangeText={(searchString) =>  this.setState(()=>({
+            searchString: searchString
+          }))}  />
       </View>
       <Button style={styles.button}
       title = "Search"
+      onPress={() =>{
+
+      axios.get("https://jobs.github.com/positions.json")
+      .then(res => {
+        const jobs = res.data;
+        this.setState({ jobs:jobs });
+      })
+      .catch(err => console.log(err.message)); //eslint-disable-lint
+      this.props.navigation.navigate('Jobs',{jobs:this.state.jobs})
+      } }
+      title="Button"
       />
+
       </View>
     )
   }
