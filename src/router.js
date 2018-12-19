@@ -2,7 +2,7 @@
 import { createStackNavigator,createAppContainer } from 'react-navigation';
 import SearchComponent from './SearchComponent';
 import Jobs from './jobs';
-import Job from './Job';
+import Job from './job';
 const Tabs = createStackNavigator({
         SearchComponent:  {screen: SearchComponent},
         Jobs: { screen: Jobs },

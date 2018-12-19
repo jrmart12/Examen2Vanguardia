@@ -12,7 +12,7 @@ export default class SearchComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchString: 'Search',
+      searchString: "",
       jobs: []
     };
   }
@@ -39,23 +39,22 @@ export default class SearchComponent extends React.Component {
 
       axios.get("https://jobs.github.com/positions.json")
       .then((res)=> {
-        let a = 0;
+        let x = 0;
         let job = [];
-        for(a = 0; a < res.data.length; a++){
-          //un if para verificar lo que tiene text
+        for(x = 0; x < res.data.length; x++){
           if(this.state.searchString != "Search"){
             var busqueda = this.state.searchString;
-            if(res.data[a].title.includes(busqueda)){
-              job.push(res.data[a]);
+            if(res.data[x].title.includes(busqueda)){
+              job.push(res.data[x]);
             }
           }
         }
         console.log(res.data.length);
         this.setState(() => ({jobs: job}));
-        this.props.navigation.navigate('Jobs', {jobs: this.state.postsToShow}); 
+        console.log(this.state.jobs.length);
+        this.props.navigation.navigate('Jobs', {jobs: this.state.jobs}); 
       })
       .catch(err => console.log(err.message)); //eslint-disable-lint
-      console.log(this.state.jobs.length);
     } 
     }
 

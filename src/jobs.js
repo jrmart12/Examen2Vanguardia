@@ -5,7 +5,9 @@ import {
     ScrollView,
     SafeAreaView,
     Text,
-    View
+    View,
+    Button,
+    FlatList
   } from 'react-native';
 import React, { Component } from 'react';
 
@@ -13,21 +15,34 @@ export default class Jobs extends React.Component  {
 
     render() {
         const {navigation} = this.props;
-        const recibo = navigation.getParam('Jobs');
-      return (
-            <ScrollView >
-                         <SafeAreaView>
-                         {recibo.map((data) =>  <Button
-                            title={recibo.title}
-                            onPress={()=>{
-                                this.props.navigation.navigate('Job', {data: data});
-                            }}
-                            >
-                            </Button>)}
-                         </SafeAreaView>
-                         
-                     </ScrollView>
-                     
-      )
-    }
-  };
+        const jobs = navigation.getParam('jobs');
+            return (
+              <View style={styles.container}>
+                <FlatList
+                  data={jobs}
+                  renderItem={({ item }) => (
+                    <Button
+                      color="black"
+                      title={`${item.title}`}
+                      onPress={()=>{
+                        this.props.navigation.navigate('Job', {item: item});
+                      }}
+                    />
+                  )}
+                />
+              </View>
+            );
+          }
+        }
+        
+        const styles = StyleSheet.create({
+          container: {
+           flex: 1,
+           paddingTop: 22
+          },
+          item: {
+            padding: 10,
+            fontSize: 18,
+            height: 44,
+          },
+        })
