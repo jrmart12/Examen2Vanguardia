@@ -5,8 +5,7 @@ import {
   Text,
   TextInput,
   View,
-  Button,
-  NavigatorIOS 
+  Button
 } from 'react-native';
 
 export default class SearchComponent extends React.Component {
