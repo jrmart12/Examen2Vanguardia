@@ -17,10 +17,6 @@ export default class SearchComponent extends React.Component {
     };
   }
 
-
-    
-
-
   render() {
     return (  
       <View style={styles.main}>
@@ -42,11 +38,12 @@ export default class SearchComponent extends React.Component {
       onPress={() =>{
 
       axios.get("https://jobs.github.com/positions.json")
-      .then(res => {
-        const jobs = res.data;
-        this.setState({ jobs:jobs });
+      .then(({ data })=> {
+        console.log(data);
+        this.setState({ jobs:data });
       })
       .catch(err => console.log(err.message)); //eslint-disable-lint
+
       this.props.navigation.navigate('Jobs',{jobs:this.state.jobs})
       } }
       title="Button"

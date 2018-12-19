@@ -2,6 +2,8 @@
 import {
     Platform,
     StyleSheet,
+    ScrollView,
+    SafeAreaView,
     Text,
     View
   } from 'react-native';
@@ -10,14 +12,21 @@ import React, { Component } from 'react';
 export default class Jobs extends React.Component  {
 
     render() {
-        const {navigation} = this.props
-        const recibo = navigation.getParams('jobs')
+        const {navigation} = this.props;
+        const recibo = navigation.getParam('jobs');
       return (
-        <View>
-            <ul>
-                { recibo.map(jobs => <li>{jobs.title}</li>)}
-            </ul>
-        </View>
+            <ScrollView >
+                         <SafeAreaView>
+                             {recibo.map(data => (
+                                 <Text type="title1"
+                                     title={data.title}
+                                 />
+                                 
+                             ))}
+                         </SafeAreaView>
+                         
+                     </ScrollView>
+                     
       )
     }
   };
